@@ -1,0 +1,1 @@
+{"ast":null,"code":"","map":{"version":3,"sources":[],"names":[],"mappings":"","sourcesContent":["import {\n  SettingsForm,\n  SettingsFormContent,\n  HeadingSection,\n  Title,\n  Col,\n  Row,\n} from \"./settings.style\";\n\ntype SettingsContentProps = {\n  device;\n};\n"]},"metadata":{},"sourceType":"module"}

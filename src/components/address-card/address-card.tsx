@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
-import * as Yup from 'yup';
-import { withFormik, FormikProps, Form } from 'formik';
-import { closeModal } from '@redq/reuse-modal';
-import TextField from 'components/forms/text-field';
-import { Button } from 'components/button/button';
-import { useMutation } from '@apollo/client';
-import { UPDATE_ADDRESS } from 'graphql/mutation/address';
-import { FieldWrapper, Heading } from './address-card.style';
-import { ProfileContext } from 'contexts/profile/profile.context';
-import { FormattedMessage } from 'react-intl';
+import React, { useContext } from "react";
+import * as Yup from "yup";
+import { withFormik, FormikProps, Form } from "formik";
+import { closeModal } from "@redq/reuse-modal";
+import TextField from "../../components/forms/text-field";
+import { Button } from "../../components/button/button";
+import { FieldWrapper, Heading } from "./address-card.style";
+import { FormattedMessage } from "react-intl";
 
 // Shape of form values
 interface FormValues {
@@ -28,16 +25,16 @@ const FormEnhancer = withFormik<MyFormProps, FormValues>({
   mapPropsToValues: (props) => {
     return {
       id: props.item.id || null,
-      name: props.item.name || '',
-      info: props.item.info || '',
+      name: props.item.name || "",
+      info: props.item.info || "",
     };
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().required('Title is required!'),
-    info: Yup.string().required('Address is required'),
+    name: Yup.string().required("Title is required!"),
+    info: Yup.string().required("Address is required"),
   }),
   handleSubmit: (values) => {
-    console.log(values, 'values');
+    console.log(values, "values");
     // do submitting things
   },
 });
@@ -58,27 +55,19 @@ const UpdateAddress = (props: FormikProps<FormValues> & MyFormProps) => {
   } = props;
   const addressValue = {
     id: values.id,
-    type: 'secondary',
+    type: "secondary",
     name: values.name,
     info: values.info,
   };
-  const { state, dispatch } = useContext(ProfileContext);
-
-  const [addressMutation, { data }] = useMutation(UPDATE_ADDRESS);
 
   const handleSubmit = async () => {
     if (isValid) {
-      const addressData = await addressMutation({
-        variables: { addressInput: JSON.stringify(addressValue) },
-      });
-      console.log(addressData, 'address data');
-      dispatch({ type: 'ADD_OR_UPDATE_ADDRESS', payload: addressValue });
-      closeModal();
+      console.log("address data");
     }
   };
   return (
     <Form>
-      <Heading>{item && item.id ? 'Edit Address' : 'Add New Address'}</Heading>
+      <Heading>{item && item.id ? "Edit Address" : "Add New Address"}</Heading>
       <FieldWrapper>
         <TextField
           id="name"
@@ -106,7 +95,7 @@ const UpdateAddress = (props: FormikProps<FormValues> & MyFormProps) => {
       <Button
         onClick={handleSubmit}
         type="submit"
-        style={{ width: '100%', height: '44px' }}
+        style={{ width: "100%", height: "44px" }}
       >
         <FormattedMessage id="savedAddressId" defaultMessage="Save Address" />
       </Button>
